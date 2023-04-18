@@ -1,5 +1,5 @@
 <html>
     <body>
-        <h1>landpoint: {{ $landpoint }}, distance: {{ $distance }}</h1>
+        <h1>Landpoint: {{ $landpoint['name']}}, distance: {{$landpoint['distance'] }}</h1>
     </body>
 </html>
