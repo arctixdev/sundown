@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
+use Location\Coordinate;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return View::make('test');
+    Artisan::call('app:find-closest-landing-spot');
+    $closest_landing_spot = Artisan::output();
+    return View('front', ["landpoint" => $closest_landing_spot["name"], "distance" => $closest_landing_spot["distance"]]);
 });
