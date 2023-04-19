@@ -3,12 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Models\Landpoint;
-use App\Traits\IssPositionTrait;
+use App\Services\IssService;
+use App\Traits\HelperTraits;
 use Illuminate\Console\Command;
 
 class updateIssPosition extends Command
 {
-    use IssPositionTrait;
+    use HelperTraits;
     /**
      * The name and signature of the console command.
      *
@@ -28,8 +29,9 @@ class updateIssPosition extends Command
      */
     public function handle()
     {
-        $timestamp = $this->getTimestamp();
-        $location = $this->getIssLocation($timestamp);
+        $iss = new IssService;
+        $timestamp = $iss->getTimestamp();
+        $location = $iss->getLocation($timestamp);
         $landpoint = $this->findClosestLandingSpot();
         $landpoint_id = Landpoint::where('name', 'LIKE', $landpoint['name'])->first()->id;
         $distance = $landpoint["distance"];

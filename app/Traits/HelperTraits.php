@@ -2,36 +2,35 @@
 
 namespace App\Traits;
 
-use App\Console\Commands\getCurrentIssLocation;
 use App\Models\IssPosition;
 use App\Models\Landpoint;
+use App\Models\User;
+use App\Services\IssService;
 use Carbon\Carbon;
-use GuzzleHttp\Client;
 use Location\Coordinate;
 use Location\Distance\Vincenty;
 
-trait IssPositionTrait {
-    public function getIssLocation($timestamp) {
-        $client = new Client();
-        $api_response = $client->get("https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps={$timestamp}");
-        $response = strval($api_response->getBody());
-        $response_json = get_object_vars(json_decode($response)[0]);
-        $latitude = $response_json['latitude'];
-        $longitude = $response_json['longitude'];
-        return new Coordinate($latitude, $longitude);
+trait HelperTraits {
+    public function calculateDistance($cord_from, $cord_to) {
+        $calculator = new Vincenty();
+        return $calculator->getDistance($cord_from, $cord_to);
     }
 
-    public function getCurrentIssLocation() {
-        return $this->getIssLocation(Carbon::now()->timestamp);
+    public function addUser($first_name, $last_name, $code_name, $username, $email, $password, $avatar) {
+        $user = new User;
+        $user->first_name = $first_name;
+        $user->last_name = $last_name;
+        $user->code_name = $code_name;
+        $user->username = $username;
+        $user->email = $email;
+        $user->password = $password;
+        $user->avatar = $avatar;
+        $user->save();
+        return $user->id;
     }
 
     public function getTimestamp() {
         return intval(Carbon::now()->timestamp);
-    }
-
-    public function calculateDistance($cord_from, $cord_to) {
-        $calculator = new Vincenty();
-        return $calculator->getDistance($cord_from, $cord_to);
     }
 
     public function addLandpoint($name, $latitude, $longitude) {
@@ -54,6 +53,7 @@ trait IssPositionTrait {
     }
 
     public function findClosestLandingSpot() {
+        $issService = new IssService();
         $landpoints = [
             "Europe" => new Coordinate(55.68474022214539, 12.50971483525464),
             "China" => new Coordinate(41.14962602664463, 119.33727554032843),
@@ -63,7 +63,7 @@ trait IssPositionTrait {
             "India" => new Coordinate(19.330540162912126, 79.14236662251713),
             "Argentina" => new Coordinate(-34.050351176517886, -65.92682965568743),
         ];
-        $iss_location = $this->getCurrentIssLocation();
+        $iss_location = $issService->getCurrentLocation();
         $closestLandingspot = [
             "distance" => 999999999999999999,
             "name" => "None"
@@ -76,5 +76,9 @@ trait IssPositionTrait {
             }
         }
         return $closestLandingspot;
+    }
+
+    public function getLandpoint($name) {
+        return Landpoint::where("name", "=", $name)->first();
     }
 }

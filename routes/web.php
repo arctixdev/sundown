@@ -3,7 +3,7 @@
 use App\Http\Controllers\testcontroller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Traits\IssPositionTrait;
+use App\Traits\HelperTraits;
 
 /*
 |--------------------------------------------------------------------------
