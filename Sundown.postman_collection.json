@@ -17,13 +17,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1/api/missions/2/images",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/missions/2/images",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"{{base_url}}"
 									],
 									"path": [
 										"api",
@@ -41,13 +37,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1/api/missions/2/images/10",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/missions/2/images/10",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"{{base_url}}"
 									],
 									"path": [
 										"api",
@@ -66,13 +58,9 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1/api/missions/2/images/?camera_name=h&rover_name=jfj&rover_status=asf&img=224qfaf",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/missions/2/images/?camera_name=h&rover_name=jfj&rover_status=asf&img=224qfaf",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"{{base_url}}"
 									],
 									"path": [
 										"api",
@@ -109,13 +97,9 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1/api/missions/2/images/10?rover_name=hhaiufh",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/missions/2/images/10?rover_name=hhaiufh",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"{{base_url}}"
 									],
 									"path": [
 										"api",
@@ -140,13 +124,9 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1/api/missions/2/images/12",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/missions/2/images/12",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"{{base_url}}"
 									],
 									"path": [
 										"api",
@@ -167,13 +147,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1/api/missions",
-							"protocol": "http",
+							"raw": "{{base_url}}/api/missions",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -189,13 +165,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1/api/missions/2",
-							"protocol": "http",
+							"raw": "{{base_url}}/api/missions/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -212,13 +184,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1/api/missions/?name=h&description=jfj&lat=2&lon=2&mission_date=2023-04-20 10:11:47&user_id=1",
-							"protocol": "http",
+							"raw": "{{base_url}}/api/missions/?name=h&description=jfj&lat=2&lon=2&mission_date=2023-04-20 10:11:47&user_id=1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -261,13 +229,9 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1/api/missions/2?lat=3",
-							"protocol": "http",
+							"raw": "{{base_url}}/api/missions/2?lat=3",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -290,13 +254,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1/api/missions/3",
-							"protocol": "http",
+							"raw": "{{base_url}}/api/missions/3",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -314,28 +274,29 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "yuga@mtr.moon",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "poleposition1",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://127.0.0.1/api/login?email=yuga@mtr.moon&password=poleposition1",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/login",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
 						"login"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "yuga@mtr.moon"
-						},
-						{
-							"key": "password",
-							"value": "poleposition1"
-						}
 					]
 				}
 			},
@@ -370,6 +331,13 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://sundown.test",
+			"type": "default"
 		}
 	]
 }
