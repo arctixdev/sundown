@@ -9,6 +9,7 @@ use Illuminate\Console\Command;
 class getBestTime extends Command
 {
     use HelperTraits;
+
     /**
      * The name and signature of the console command.
      *
@@ -30,8 +31,8 @@ class getBestTime extends Command
     {
         $weather = new WeatherService();
         $landpoint = $this->argument('landpoint');
-        if (!$landpoint) {
-            $landpoint = $this->findClosestLandingSpot()["name"];
+        if (! $landpoint) {
+            $landpoint = $this->findClosestLandingSpot()['name'];
             $this->info("No landpoint specified. Using the closest one: {$landpoint}");
         }
         $result = $weather->bestInTheNext24Hours($landpoint);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id');
             $table->string('name');
             $table->double('latitude', 30, 4);
-            $table->double('longitude', 30 ,4);
+            $table->double('longitude', 30, 4);
         });
     }
 

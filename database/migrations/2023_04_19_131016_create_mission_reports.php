@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('lat', 30, 4);
-            $table->decimal('lnn', 30, 4);
+            $table->decimal('lon', 30, 4);
             $table->date('mission_date');
-            $table->date('finalisation_date');
+            $table->date('finalisation_date')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->bigInteger('user_id')->unsigned();

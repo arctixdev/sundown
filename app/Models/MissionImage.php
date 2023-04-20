@@ -9,10 +9,20 @@ class MissionImage extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'camera_name',
+        'rover_name',
+        'rover_status',
+        'img',
+        'mission_report_id',
+    ];
+
     public $incrementing = true;
+
     protected $primaryKey = 'id';
 
-    public function report() {
+    public function missionReport()
+    {
         return $this->belongsTo(MissionReport::class);
     }
 }

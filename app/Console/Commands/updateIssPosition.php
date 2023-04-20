@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 class updateIssPosition extends Command
 {
     use HelperTraits;
+
     /**
      * The name and signature of the console command.
      *
@@ -34,7 +35,7 @@ class updateIssPosition extends Command
         $location = $iss->getLocation($timestamp);
         $landpoint = $this->findClosestLandingSpot();
         $landpoint_id = Landpoint::where('name', 'LIKE', $landpoint['name'])->first()->id;
-        $distance = $landpoint["distance"];
+        $distance = $landpoint['distance'];
         $this->addIssPosititon($timestamp, $location->getLat(), $location->getLng(), $distance, $landpoint_id);
     }
 }

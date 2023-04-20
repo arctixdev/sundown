@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 class getWeather extends Command
 {
     use HelperTraits;
+
     /**
      * The name and signature of the console command.
      *
@@ -37,8 +38,8 @@ class getWeather extends Command
         dump($repport_image);
         $weather = new WeatherService();
         $landpoint = $this->argument('landpoint');
-        if (!$landpoint) {
-            $landpoint = $this->findClosestLandingSpot()["name"];
+        if (! $landpoint) {
+            $landpoint = $this->findClosestLandingSpot()['name'];
             $this->info("No landpoint specified. Using the closest one: {$landpoint}");
         }
         $currentWeather = $weather->getCurrentAtLandpoint($landpoint);

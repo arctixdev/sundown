@@ -13,7 +13,9 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public $incrementing = true;
+
     protected $primaryKey = 'id';
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -24,7 +26,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function reports() {
+    public function reports()
+    {
         return $this->hasMany(MissionReport::class);
     }
 }
