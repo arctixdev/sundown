@@ -14,7 +14,7 @@ class MissionController extends Controller
      */
     public function index()
     {
-        $missons = QueryBuilder::for(MissionRepport::class);
+        $missons = QueryBuilder::for(MissionReport::class);
 
         return MissionReportResource::collection($missons);
     }

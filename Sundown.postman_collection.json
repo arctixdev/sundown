@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "a0c9ec51-5e24-48b5-8d9c-68da2c110b50",
+		"name": "Sundown",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Missions",
+			"item": [
+				{
+					"name": "Images",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1/api/missions/2/images",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"path": [
+										"api",
+										"missions",
+										"2",
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1/api/missions/2/images/10",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"path": [
+										"api",
+										"missions",
+										"2",
+										"images",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1/api/missions/2/images/?camera_name=h&rover_name=jfj&rover_status=asf&img=224qfaf",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"path": [
+										"api",
+										"missions",
+										"2",
+										"images",
+										""
+									],
+									"query": [
+										{
+											"key": "camera_name",
+											"value": "h"
+										},
+										{
+											"key": "rover_name",
+											"value": "jfj"
+										},
+										{
+											"key": "rover_status",
+											"value": "asf"
+										},
+										{
+											"key": "img",
+											"value": "224qfaf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1/api/missions/2/images/10?rover_name=hhaiufh",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"path": [
+										"api",
+										"missions",
+										"2",
+										"images",
+										"10"
+									],
+									"query": [
+										{
+											"key": "rover_name",
+											"value": "hhaiufh"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Destoy",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1/api/missions/2/images/12",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"path": [
+										"api",
+										"missions",
+										"2",
+										"images",
+										"12"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/api/missions",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"api",
+								"missions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/api/missions/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"api",
+								"missions",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/api/missions/?name=h&description=jfj&lat=2&lon=2&mission_date=2023-04-20 10:11:47&user_id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"api",
+								"missions",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "h"
+								},
+								{
+									"key": "description",
+									"value": "jfj"
+								},
+								{
+									"key": "lat",
+									"value": "2"
+								},
+								{
+									"key": "lon",
+									"value": "2"
+								},
+								{
+									"key": "mission_date",
+									"value": "2023-04-20 10:11:47"
+								},
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/api/missions/2?lat=3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"api",
+								"missions",
+								"2"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destoy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/api/missions/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"api",
+								"missions",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1/api/login?email=yuga@mtr.moon&password=poleposition1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "yuga@mtr.moon"
+						},
+						{
+							"key": "password",
+							"value": "poleposition1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjE2YzY4YjJhZTFlODQ3YTU4NDExOTgyMDEyMmUwZmZmZmMxZDM2YWRhMjA1ZDE4ODVhZmQ3MTFkZmVhZTEyMjM3ZThiNDRkNjkxYTUwMGMiLCJpYXQiOjE2ODE5NzgyOTcuMzM2ODYzLCJuYmYiOjE2ODE5NzgyOTcuMzM2ODY1LCJleHAiOjE3MTM2MDA2OTcuMzMzMDAxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.a2uLoXquomo__R0DkK903i8b5eIR5YDwP5JIuz0SrBRu8Zcpo7DqZs4LTc-yXif-ONmyQ7SvsyKtsDtjTWxmTMWtUGXdWFXfUfY0IxquZ305QWG93YA7Pkudwa5_r5xQa-oC-X7GXEqL5c3177hFW8VVg7OJ44py0fLMF7hmOackuTtuckvMwmVuk3HlsMCHi4IMSbNNR2T8gwwlShOUhXbkg4Y2_oBGWtI_0As20QiYmWY5EUaGa10uKtQi-KqYUynjIIqGNmto7mp_stdiYy9cpr4i9Mu9QsLgLK-X5NC9OCbEaXAQjtbSlRlk6m4e7K4P3aOxf6nbku-RnoAJiW-hxqXUgKzkk99Ouc0Tlm4HhXTMX0nynNhHe4QdzAo5c-cqHm0RTo5p97DF9xtXUqbaAhvvteiDz41mnloIto3SgJ_4NVahJBGY4qAHkr__KWCOfehZ-UM7zrpdOjGaojfAUFflfEuKyL08rU919yjjhHJkK6ce-NEkoQteCm19BqXaEWmNVFbY282cv4kpgWYfJOVz6ldgfDPbB2XTVsMWpBn8gpYfUwxUVu3Gyp3YP4Tb2p-JlhvAwyUIZFVWr22jAhDm5D3TB2Ey69AOcOmrJTmMjeUYOuNdb8fR4GvWTyYFaP-vZBSerjfo0gyhmlrYgcP7ZAVgqp9ijwYLVWM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
