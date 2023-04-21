@@ -10,6 +10,9 @@ class WeatherService
 {
     use HelperTraits;
 
+    /**
+     * Get weather forecast for the next couple of hours
+     */
     public function getHourly($latitude, $longitude)
     {
         $client = new Client();
@@ -19,6 +22,9 @@ class WeatherService
         return $response;
     }
 
+    /**
+     * Get current temperature for specific cords
+     */
     public function getCurrent($latitude, $longitude)
     {
         $api_response = $this->getHourly($latitude, $longitude);
@@ -27,6 +33,9 @@ class WeatherService
         return $api_response->hourly->temperature_2m[$hour];
     }
 
+    /**
+     * Get current temperature for specific landpoint
+     */
     public function getCurrentAtLandpoint($landpoint)
     {
         $landpointObj = $this->getLandpoint($landpoint);
@@ -34,20 +43,18 @@ class WeatherService
         return $this->getCurrent($landpointObj->latitude, $landpointObj->longitude);
     }
 
+    /**
+     * Find the time with lowest temperature in the next days at a specific landpoint
+     */
     public function bestInTheNext24Hours($landpoint)
     {
-        $landpoint = $this->getLandpoint($landpoint);
-        $temps = $this->getHourly($landpoint->latitude, $landpoint->longitude);
-        $lowestKey = -1;
-        $lowestTemp = 999;
-        foreach ($temps->hourly->temperature_2m as $key => $temp) {
-            if ($temp < $lowestTemp) {
-                $lowestTemp = $temp;
-                $lowestKey = $key;
-            }
-        }
-        $time = $temps->hourly->time[$lowestKey];
+        $landpoint = $this->getLandpoint($landpoint['name']);
+        $temps_dat = $this->getHourly($landpoint->latitude, $landpoint->longitude);
+        $temps = $temps_dat->hourly->temperature_2m;
+        $lowest_temp = min($temps);
+        $lowest_temp_key = array_search($lowest_temp, $temps);
+        $time = $temps_dat->hourly->time[$lowest_temp_key];
 
-        return [$time, $lowestTemp];
+        return [$time, $lowest_temp];
     }
 }

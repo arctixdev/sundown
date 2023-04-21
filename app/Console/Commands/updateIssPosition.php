@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Landpoint;
 use App\Services\IssService;
 use App\Traits\HelperTraits;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class updateIssPosition extends Command
@@ -16,7 +17,7 @@ class updateIssPosition extends Command
      *
      * @var string
      */
-    protected $signature = 'app:update-iss-position';
+    protected $signature = 'iss:update-position';
 
     /**
      * The console command description.
@@ -31,11 +32,11 @@ class updateIssPosition extends Command
     public function handle()
     {
         $iss = new IssService;
-        $timestamp = $iss->getTimestamp();
+        $timestamp = intval(Carbon::now()->timestamp);
         $location = $iss->getLocation($timestamp);
         $landpoint = $this->findClosestLandingSpot();
         $landpoint_id = Landpoint::where('name', 'LIKE', $landpoint['name'])->first()->id;
-        $distance = $landpoint['distance'];
+        $distance = $landpoint['location']->distance;
         $this->addIssPosititon($timestamp, $location->getLat(), $location->getLng(), $distance, $landpoint_id);
     }
 }

@@ -8,6 +8,9 @@ use Location\Coordinate;
 
 class IssService
 {
+    /**
+     * Get location of iss on a specific timestamp
+     */
     public function getLocation($timestamp)
     {
         $client = new Client();
@@ -20,13 +23,11 @@ class IssService
         return new Coordinate($latitude, $longitude);
     }
 
+    /**
+     * Get current iss posistion
+     */
     public function getCurrentLocation()
     {
         return $this->getLocation(Carbon::now()->timestamp);
-    }
-
-    public function getTimestamp()
-    {
-        return intval(Carbon::now()->timestamp);
     }
 }

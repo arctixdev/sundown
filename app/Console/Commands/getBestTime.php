@@ -15,14 +15,14 @@ class getBestTime extends Command
      *
      * @var string
      */
-    protected $signature = 'app:get-best-time {landpoint?} {mode?}';
+    protected $signature = 'iss:best-land-time {landpoint?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Returns the best time to land in the next couple of days for a specific landpoint';
 
     /**
      * Execute the console command.
@@ -32,10 +32,10 @@ class getBestTime extends Command
         $weather = new WeatherService();
         $landpoint = $this->argument('landpoint');
         if (! $landpoint) {
-            $landpoint = $this->findClosestLandingSpot()['name'];
-            $this->info("No landpoint specified. Using the closest one: {$landpoint}");
+            $landpoint = $this->findClosestLandingSpot();
+            $this->info("No landpoint specified. Using the closest one: {$landpoint['name']}");
         }
         $result = $weather->bestInTheNext24Hours($landpoint);
-        $this->info("The best time to land at {$landpoint} in the next few days is at {$result[0]}. It will be {$result[1]}°C");
+        $this->info("The best time to land at {$landpoint['name']} in the next few days is at {$result[0]}. It will be {$result[1]}°C");
     }
 }

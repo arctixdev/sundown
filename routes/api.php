@@ -23,3 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('missions', MissionController::class)->middleware('auth:api');
 Route::apiResource('missions.images', ImageController::class)->middleware('auth:api');
 Route::post('login', ['as' => 'login', 'uses' => 'App\Http\Controllers\Auth\UserController@login']);
+Route::get('validate-token', function () {
+    return true;
+})->middleware('auth:api');

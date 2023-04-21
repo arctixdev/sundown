@@ -6,12 +6,15 @@ use App\Models\IssPosition;
 use App\Models\Landpoint;
 use App\Models\User;
 use App\Services\IssService;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Location\Coordinate;
 use Location\Distance\Vincenty;
 
 trait HelperTraits
 {
+    /**
+     * Calculate distance between two coordinates
+     */
     public function calculateDistance($cord_from, $cord_to)
     {
         $calculator = new Vincenty();
@@ -19,6 +22,9 @@ trait HelperTraits
         return $calculator->getDistance($cord_from, $cord_to);
     }
 
+    /**
+     * Helper function to help adding a user
+     */
     public function addUser($first_name, $last_name, $code_name, $username, $email, $password, $avatar)
     {
         $user = new User;
@@ -27,18 +33,16 @@ trait HelperTraits
         $user->code_name = $code_name;
         $user->username = $username;
         $user->email = $email;
-        $user->password = $password;
+        $user->password = Hash::make($password);
         $user->avatar = $avatar;
         $user->save();
 
-        return $user->id;
+        return $user;
     }
 
-    public function getTimestamp()
-    {
-        return intval(Carbon::now()->timestamp);
-    }
-
+    /**
+     * Helper function to help adding a landpoint
+     */
     public function addLandpoint($name, $latitude, $longitude)
     {
         $landpoint = new Landpoint;
@@ -50,6 +54,9 @@ trait HelperTraits
         return $landpoint->id;
     }
 
+    /**
+     * Helper function to help adding a Iss Posistion
+     */
     public function addIssPosititon($timestamp, $latitude, $longitude, $distance, $landpoint_id)
     {
         $posisiton = new IssPosition;
@@ -61,34 +68,55 @@ trait HelperTraits
         $posisiton->save();
     }
 
+    /**
+     * Parse a landpoint
+     * Convert it from database model object to Name and coordinates
+     */
+    public function parseLandpoint(Landpoint $landpoint)
+    {
+        $name = $landpoint->name;
+        $coordinate = new Coordinate($landpoint->latitude, $landpoint->longitude);
+
+        return ['name' => $name, 'coordinate' => $coordinate];
+    }
+
+    /**
+     * Get all landpoints from database and parse them
+     */
+    public function getLandpoints()
+    {
+        $db_landpoints = Landpoint::all();
+        $landpoints = [];
+        foreach ($db_landpoints as $db_landpoint) {
+            $landpoint = $this->parseLandpoint($db_landpoint);
+            $landpoints[$landpoint['name']] = $landpoint['coordinate'];
+        }
+
+        return collect($landpoints);
+    }
+
+    /**
+     * Find the current closest landingspot for the ISS
+     */
     public function findClosestLandingSpot()
     {
         $issService = new IssService();
-        $landpoints = [
-            'Europe' => new Coordinate(55.68474022214539, 12.50971483525464),
-            'China' => new Coordinate(41.14962602664463, 119.33727554032843),
-            'America' => new Coordinate(40.014407426017335, -103.68329704730307),
-            'Africa' => new Coordinate(-21.02973667221353, 23.77076788325546),
-            'Australia' => new Coordinate(-33.00702098732439, 117.83314818861444),
-            'India' => new Coordinate(19.330540162912126, 79.14236662251713),
-            'Argentina' => new Coordinate(-34.050351176517886, -65.92682965568743),
-        ];
+        $landpoints = $this->getLandpoints();
         $iss_location = $issService->getCurrentLocation();
-        $closestLandingspot = [
-            'distance' => 999999999999999999,
-            'name' => 'None',
-        ];
-        foreach ($landpoints as $name => $landpoint) {
-            $distance = $this->calculateDistance($iss_location, $landpoint);
-            if ($distance < $closestLandingspot['distance']) {
-                $closestLandingspot['distance'] = $distance;
-                $closestLandingspot['name'] = $name;
-            }
-        }
 
-        return $closestLandingspot;
+        $landpoints->each(function ($value, $key) use ($iss_location, $landpoints) {
+            $distance = $this->calculateDistance($iss_location, $value);
+            $landpoints[$key]->distance = $distance;
+        });
+
+        $landpointsSorted = $landpoints->sortBy('distance');
+
+        return ['name' => $landpointsSorted->keys()->first(), 'location' => $landpointsSorted->first()];
     }
 
+    /**
+     * Get a landpoint by name
+     */
     public function getLandpoint($name)
     {
         return Landpoint::where('name', '=', $name)->first();

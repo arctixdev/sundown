@@ -14,7 +14,9 @@ class MissionController extends Controller
      */
     public function index()
     {
-        $missons = QueryBuilder::for(MissionReport::class);
+        $missons = QueryBuilder::for(MissionReport::class)
+            ->allowedFilters(['name', 'mission_date', 'user_id', 'lat', 'lon'])
+            ->paginate(10);
 
         return MissionReportResource::collection($missons);
     }
@@ -51,8 +53,10 @@ class MissionController extends Controller
     public function update(Request $request, string $id)
     {
         $report = MissionReport::find($id);
+        $report->update($request->all());
+        $report->save();
 
-        return $report->update($request->all());
+        return $report;
     }
 
     /**

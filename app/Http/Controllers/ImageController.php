@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ImageResource;
 use App\Models\MissionImage;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ImageController extends Controller
 {
@@ -13,7 +14,9 @@ class ImageController extends Controller
      */
     public function index($mission_id)
     {
-        $images = MissionImage::where('mission_report_id', $mission_id);
+        $images = QueryBuilder::for(MissionImage::where('mission_report_id', $mission_id))
+            ->allowedFilters(['camera_name', 'rover_name', 'rover_status', 'created_at'])
+            ->paginate(10);
 
         return ImageResource::collection($images);
     }
