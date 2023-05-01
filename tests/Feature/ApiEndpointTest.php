@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\MissionImage;
+use App\Models\MissionReport;
 use App\Models\User;
 use Database\Seeders\DatabaseSeederTesting;
 use Illuminate\Support\Facades\Artisan;
@@ -46,14 +48,114 @@ class ApiEndpointTest extends TestCase
     }
 
     /**
+     * Test endpoint dosnt accept unauthorized requests
+     */
+    public function testAuthRequired()
+    {
+        $this->get(URL::to('/api/missions'), ['Content-Type' => 'application/json', 'Accept' => 'application/json'])->assertUnauthorized();
+    }
+
+    /**
      * Test missions endpoint
      */
     public function testMissionsEndpoint()
     {
-        //$this->seed(DatabaseSeederTesting::class);
+        $this->seed(DatabaseSeederTesting::class);
+        $missionReport = MissionReport::create([
+            'name' => 'Test report #1',
+            'description' => 'En test report',
+            'lat' => 20,
+            'lon' => -20,
+            'mission_date' => '2023-04-20',
+            'user_id' => 8,
+        ]);
+        MissionImage::create([
+            'camera_name' => 'Sony QWERTY4K',
+            'rover_name' => 'Mark rover',
+            'rover_status' => 'planting trees',
+            'img' => 'Image of a tree being planted',
+            'mission_report_id' => $missionReport->id,
+        ]);
         Passport::actingAs(User::first());
         $index = $this->get(URL::to('/api/missions'));
-        dump($index);
         $index->assertOk();
+        $index->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'name',
+                    'description',
+                    'lat',
+                    'lon',
+                    'mission_date',
+                    'user_id',
+                    'images' => [
+                        '*' => [
+                            'id',
+                            'camera_name',
+                            'rover_name',
+                            'rover_status',
+                            'img',
+                            'mission_report' => [],
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                    'user' => [
+                        'id',
+                        'first_name',
+                        'last_name',
+                        'code_name',
+                        'username',
+                        'email',
+                        'avatar',
+                        'created_at',
+                        'updated_at',
+                    ],
+                ],
+            ],
+            'links' => [
+                'first',
+                'last',
+                'prev',
+                'next',
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ],
+        ]);
+        $show = $this->get(URL::to("/api/missions/{$missionReport->id}"));
+        $show->assertOk();
+        $show->assertValid();
+        $update = $this->put(URL::to("/api/missions/{$missionReport->id}?lat=99"));
+        $update->assertOk();
+        $update->assertValid();
+        $this->assertStringContainsString('\"lat\":\"99\",', json_encode($update->decodeResponseJson()));
+
+        /*$store = $this->post(URL::to("/api/missions\
+        ?name=Mission#1\
+        &description=TheBestMission\
+        &lat=25.29\
+        &lon=-45.10\
+        &mission_date=2023-04-20 10:11:47\
+        &user_id=1
+        "));
+        $store->assertOk();
+        $store->assertValid();
+        $this->assertDatabaseHas('mission_reports', [
+            "name" => "Mission#1",
+            "description" => "TheBestMission",
+        ]);*/
+
+        $destroy = $this->delete(URL::to("/api/missions/{$missionReport->id}"));
+        $destroy->assertOk();
+        $destroy->assertContent('1');
     }
 }

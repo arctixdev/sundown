@@ -144,8 +144,22 @@
 				{
 					"name": "Index",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/api/missions",
 							"host": [
@@ -154,6 +168,13 @@
 							"path": [
 								"api",
 								"missions"
+							],
+							"query": [
+								{
+									"key": "filter[name]",
+									"value": "hey",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -229,7 +250,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/missions/2?lat=3",
+							"raw": "{{base_url}}/api/missions/2?lat=58.02148",
 							"host": [
 								"{{base_url}}"
 							],
@@ -241,7 +262,7 @@
 							"query": [
 								{
 									"key": "lat",
-									"value": "3"
+									"value": "58.02148"
 								}
 							]
 						}
@@ -272,6 +293,9 @@
 		{
 			"name": "Login",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -279,12 +303,12 @@
 					"formdata": [
 						{
 							"key": "email",
-							"value": "yuga@mtr.moon",
+							"value": "anmo@mtr.moon",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "poleposition1",
+							"value": "rødgrødmedfløde",
 							"type": "text"
 						}
 					]
@@ -319,7 +343,8 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					""
+					"pm.request.headers.add({key: 'Accept', value: 'application/json' })",
+					"pm.request.headers.add({key: 'Content-Type', value: 'application/json' })"
 				]
 			}
 		},

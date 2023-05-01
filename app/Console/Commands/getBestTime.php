@@ -31,6 +31,8 @@ class getBestTime extends Command
     {
         $weather = new WeatherService();
         $landpoint = $this->argument('landpoint');
+        $landpoint = [];
+        $landpoint['name'] = $landpoint;
         if (! $landpoint) {
             $landpoint = $this->findClosestLandingSpot();
             $this->info("No landpoint specified. Using the closest one: {$landpoint['name']}");

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\MissionReport;
 use App\Models\User;
 use App\Traits\HelperTraits;
 use Illuminate\Database\Seeder;
@@ -98,15 +97,5 @@ class DatabaseSeederTesting extends Seeder
         foreach ($landpoints as $name => $landpoint) {
             $this->addLandpoint($name, $landpoint->getLat(), $landpoint->getLng());
         }
-        dump(User::all());
-        $testReport = new MissionReport([
-            'name' => 'Test report #1',
-            'description' => 'En test report',
-            'lat' => 20,
-            'lon' => -20,
-            'mission_date' => '2023-04-20',
-            'user_id' => 1,
-        ]);
-        $testReport->save();
     }
 }

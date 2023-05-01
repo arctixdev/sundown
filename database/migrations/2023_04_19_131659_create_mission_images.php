@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->bigInteger('mission_report_id')->unsigned();
-            $table->foreign('mission_report_id')->references('id')->on('mission_reports');
+            $table->foreign('mission_report_id')->references('id')->on('mission_reports')->onDelete('cascade');
         });
     }
 
