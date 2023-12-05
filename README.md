@@ -1,2 +1,5 @@
 # sundown
+
+## THIS IS UNMAINTAINED. IT CONTAINS SECURITY VULNERBILITIES AND OLD DEPENDENDENCIES
+
 Sundown 2.0 Project from Dwarf internship
